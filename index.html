@@ -1,115 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sd">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lari Ada - Sindh's No.1 Bus Booking</title>
+<title>Lari Ada - Ranipur to Karachi Sadar</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap'); body{font-family:'Inter',sans-serif}</style>
 </head>
 <body class="bg-[#F8F7F5] pb-24">
-
-<!-- TOP NAV -->
-<header class="bg-white sticky top-0 z-50 border-b">
-<div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-<div class="flex items-center gap-3">
-<button onclick="document.getElementById('drawer').classList.toggle('hidden')" class="w-9 h-9 bg-black text-white rounded-full"><i class="fa-solid fa-bars"></i></button>
-<div class="flex items-center gap-2"><div class="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div><span class="font-black text-lg">LARIADA</span></div>
-</div>
-<div class="flex items-center gap-2">
-<div class="hidden md:flex bg-gray-100 rounded-full p-1 text-xs font-bold">
-<button onclick="setL('en')" id="b-en" class="px-3 py-1.5 rounded-full bg-black text-white">EN</button>
-<button onclick="setL('sd')" id="b-sd" class="px-3 py-1.5 rounded-full">سنڌي</button>
-<button onclick="setL('ur')" id="b-ur" class="px-3 py-1.5 rounded-full">اردو</button>
-</div>
+<header class="bg-white sticky top-0 z-50 border-b px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2"><div class="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div><b>LARIADA</b></div>
 <a href="https://wa.me/923001234567" class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fa-brands fa-whatsapp"></i></a>
-</div>
-</div>
-<!-- MOBILE DRAWER MENU -->
-<div id="drawer" class="hidden absolute top-[57px] left-0 w-64 bg-white h-screen shadow-2xl p-5 border-r">
-<a href="#" class="flex items-center gap-3 p-3 bg-black text-white rounded-xl"><i class="fa-solid fa-house"></i> <span data-t="m1">Home</span></a>
-<a href="#routes" class="flex items-center gap-3 p-3 mt-2 hover:bg-gray-100 rounded-xl"><i class="fa-solid fa-route"></i> <span data-t="m2">Routes</span></a>
-<a href="#booking" class="flex items-center gap-3 p-3 mt-2 hover:bg-gray-100 rounded-xl"><i class="fa-solid fa-ticket"></i> <span data-t="m3">My Bookings</span></a>
-<a href="#" class="flex items-center gap-3 p-3 mt-2 hover:bg-gray-100 rounded-xl"><i class="fa-solid fa-phone"></i> <span data-t="m4">Contact</span></a>
-<div class="mt-6 pt-6 border-t">
-<p class="text-xs text-gray-400 font-bold tracking-widest">LANGUAGE</p>
-<div class="flex gap-2 mt-3">
-<button onclick="setL('en')" class="flex-1 py-2 border rounded-xl text-xs font-bold">EN</button>
-<button onclick="setL('sd')" class="flex-1 py-2 border rounded-xl text-xs font-bold">سنڌي</button>
-<button onclick="setL('ur')" class="flex-1 py-2 border rounded-xl text-xs font-bold">اردو</button>
-</div>
-</div>
-</div>
 </header>
 
-<!-- HERO -->
-<section class="max-w-6xl mx-auto px-4 pt-6">
-<div class="bg-black rounded-[2.2rem] p-6 md:p-10 text-white relative overflow-hidden">
-<div class="absolute -right-10 -top-10 w-64 h-64 bg-orange-500 rounded-full blur-[80px] opacity-50"></div>
-<p id="t-badge" class="relative bg-white/10 inline-flex px-3 py-1 rounded-full text-xs font-bold">🚌 Trusted by 50k+ travelers</p>
-<h1 id="t-hero" class="relative text-[32px] md:text-5xl font-black leading-[0.95] mt-4">Sindh Safar<br><span class="text-orange-500">Aasan & Sasto.</span></h1>
-<p id="t-desc" class="relative text-gray-400 mt-3 text-sm md:text-base max-w-md">Karachi to Sukkur, Hyderabad to Larkana - Book bus ticket in 30 seconds, no queue.</p>
+<div class="max-w-md mx-auto px-4 pt-5">
+<h1 class="font-black text-2xl">راڻيپور کان ڪراچي صدر؟</h1>
+<p class="text-sm text-gray-500 mt-1">بسون چيڪ ڪريو، ٽائيم ۽ ڪرايو ڏسو</p>
 
-<!-- SEARCH BOX -->
-<div id="booking" class="relative bg-white rounded-[1.5rem] p-3 mt-8 grid grid-cols-2 md:grid-cols-5 gap-3 text-black">
-<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">FROM</label><select class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"><option>Karachi</option><option>Hyderabad</option><option>Sukkur</option><option>Larkana</option></select></div>
-<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">TO</label><select class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"><option>Hyderabad</option><option>Sukkur</option><option>Karachi</option></select></div>
-<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">DATE</label><input type="date" class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"></div>
-<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">SEATS</label><select class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"><option>1 Seat</option><option>2 Seats</option></select></div>
-<button class="col-span-2 md:col-span-1 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl flex items-center justify-center gap-2"><i class="fa-solid fa-magnifying-glass"></i> <span id="t-search">Search</span></button>
+<div class="bg-black rounded-[1.8rem] p-4 mt-5">
+<div class="grid grid-cols-2 gap-3">
+<div><label class="text-[10px] text-gray-400 font-bold">کان</label><select id="fromCity" class="w-full mt-1 p-3 rounded-xl font-bold text-sm"><option value="Ranipur">راڻيپور</option><option value="Sukkur">سکر</option><option value="Khairpur">خيرپور</option><option value="Gambat">گمبٽ</option><option value="Moro">مورو</option></select></div>
+<div><label class="text-[10px] text-gray-400 font-bold">تائين</label><select id="toCity" class="w-full mt-1 p-3 rounded-xl font-bold text-sm"><option value="Karachi Sadar">ڪراچي صدر</option><option value="Karachi">ڪراچي</option><option value="Hyderabad">حيدرآباد</option></select></div>
 </div>
+<button onclick="searchBuses()" class="w-full bg-orange-500 mt-4 py-3.5 rounded-xl font-black text-white"><i class="fa-solid fa-magnifying-glass"></i> بسون ڳوليو</button>
 </div>
-</section>
 
-<!-- STATS -->
-<section class="max-w-6xl mx-auto px-4 grid grid-cols-3 gap-3 mt-6">
-<div class="bg-white border rounded-2xl p-4 text-center"><p class="text-2xl font-black">500+</p><p id="t-s1" class="text-[11px] text-gray-500 font-bold">Daily Buses</p></div>
-<div class="bg-white border rounded-2xl p-4 text-center"><p class="text-2xl font-black">50+</p><p id="t-s2" class="text-[11px] text-gray-500 font-bold">Cities Covered</p></div>
-<div class="bg-white border rounded-2xl p-4 text-center"><p class="text-2xl font-black">4.8★</p><p id="t-s3" class="text-[11px] text-gray-500 font-bold">User Rating</p></div>
-</section>
-
-<!-- ROUTES -->
-<section id="routes" class="max-w-6xl mx-auto px-4 mt-10">
-<div class="flex justify-between items-center"><h2 id="t-routes" class="font-black text-xl">Popular Routes</h2><a href="#" class="text-orange-500 text-sm font-bold">View All</a></div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-<div class="bg-white border rounded-2xl p-4 flex justify-between items-center"><div><p class="font-bold">Karachi → Hyderabad</p><p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> 2h 30m • Every 30 min</p></div><b class="text-orange-500">Rs.800</b></div>
-<div class="bg-white border rounded-2xl p-4 flex justify-between items-center"><div><p class="font-bold">Karachi → Sukkur</p><p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> 7h • AC Business</p></div><b class="text-orange-500">Rs.2500</b></div>
-<div class="bg-white border rounded-2xl p-4 flex justify-between items-center"><div><p class="font-bold">Hyderabad → Larkana</p><p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> 4h • Non AC</p></div><b>Rs.1800</b></div>
+<div id="results" class="mt-6 space-y-4"></div>
 </div>
-</section>
-
-<!-- BOTTOM NAV - APP LIKE -->
-<nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black text-white rounded-full px-2 py-2 flex gap-1 shadow-2xl z-50">
-<a href="#" class="bg-white text-black px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2"><i class="fa-solid fa-house"></i> Home</a>
-<a href="#routes" class="px-5 py-2.5 rounded-full text-sm font-bold text-gray-400"><i class="fa-solid fa-route"></i></a>
-<a href="#" class="px-5 py-2.5 rounded-full text-sm font-bold text-gray-400"><i class="fa-solid fa-ticket"></i></a>
-<a href="#" class="px-5 py-2.5 rounded-full text-sm font-bold text-gray-400"><i class="fa-solid fa-user"></i></a>
-</nav>
 
 <script>
-var D={
- en:{m1:"Home",m2:"Routes",m3:"My Bookings",m4:"Contact",badge:"🚌 Trusted by 50k+ travelers",hero:"Sindh Safar<br><span class='text-orange-500'>Aasan & Sasto.</span>",desc:"Karachi to Sukkur, Hyderabad to Larkana - Book bus ticket in 30 seconds, no queue.",search:"Search",s1:"Daily Buses",s2:"Cities Covered",s3:"User Rating",routes:"Popular Routes"},
- sd:{m1:"گهر",m2:"رستا",m3:"منهنجون بڪنگون",m4:"رابطو",badge:"🚌 50 هزار مسافرن جو اعتماد",hero:"سنڌ جو سفر<br><span class='text-orange-500'>آسان ۽ سستو.</span>",desc:"ڪراچي کان سکر، حيدرآباد کان لاڙڪاڻو - 30 سيڪنڊن ۾ ٽڪيٽ بڪ ڪريو.",search:"ڳولا",s1:"روزاني بسون",s2:"شهر",s3:"ريٽنگ",routes:"مشهور رستا"},
- ur:{m1:"ہوم",m2:"راستے",m3:"میری بکنگ",m4:"رابطہ",badge:"🚌 50 ہزار مسافروں کا اعتماد",hero:"سندھ کا سفر<br><span class='text-orange-500'>آسان اور سستا.</span>",desc:"کراچی سے سکھر، حیدرآباد سے لاڑکانہ - 30 سیکنڈ میں ٹکٹ بک کریں۔",search:"تلاش",s1:"روزانہ بسیں",s2:"شہر",s3:"ریٹنگ",routes:"مشہور راستے"}
-};
-function setL(l){
- var d=D[l];
- document.querySelectorAll('[data-t]').forEach(e=>{var k=e.getAttribute('data-t'); if(d[k]) e.innerText=d[k];});
- document.getElementById('t-badge').innerHTML=d.badge;
- document.getElementById('t-hero').innerHTML=d.hero;
- document.getElementById('t-desc').innerText=d.desc;
- document.getElementById('t-search').innerText=d.search;
- document.getElementById('t-s1').innerText=d.s1;
- document.getElementById('t-s2').innerText=d.s2;
- document.getElementById('t-s3').innerText=d.s3;
- document.getElementById('t-routes').innerText=d.routes;
- localStorage.setItem('lang',l);
- document.getElementById('b-en').className=l=='en'?'px-3 py-1.5 rounded-full bg-black text-white':'px-3 py-1.5 rounded-full';
- document.getElementById('b-sd').className=l=='sd'?'px-3 py-1.5 rounded-full bg-black text-white':'px-3 py-1.5 rounded-full';
- document.getElementById('b-ur').className=l=='ur'?'px-3 py-1.5 rounded-full bg-black text-white':'px-3 py-1.5 rounded-full';
+const buses = [
+  {name:"Al-Habib Coach", type:"AC Business", price:1200, ac:true, stops:[
+    {city:"سکر", time:"06:00 AM"},{city:"خيرپور", time:"06:50 AM"},{city:"گمبٽ", time:"07:30 AM"},{city:"راڻيپور", time:"08:15 AM", main:true},{city:"هنگورجا", time:"08:45 AM"},{city:"ڪنڊيارو", time:"09:10 AM"},{city:"نوشهرو فيروز", time:"09:40 AM"},{city:"مورو", time:"10:15 AM"},{city:"هالا", time:"11:30 AM"},{city:"سعيدآباد", time:"12:00 PM"},{city:"حيدرآباد", time:"01:00 PM"},{city:"ڪراچي", time:"02:40 PM"},{city:"ڪراچي صدر", time:"03:00 PM", main:true}
+  ]},
+  {name:"Sada Bahar Express", type:"AC Economy", price:1100, ac:true, stops:[
+    {city:"سکر", time:"08:30 AM"},{city:"خيرپور", time:"09:15 AM"},{city:"گمبٽ", time:"10:00 AM"},{city:"راڻيپور", time:"10:45 AM", main:true},{city:"هنگورجا", time:"11:15 AM"},{city:"ڪنڊيارو", time:"11:40 AM"},{city:"مورو", time:"12:30 PM"},{city:"هالا", time:"01:45 PM"},{city:"حيدرآباد", time:"03:15 PM"},{city:"ڪراچي صدر", time:"05:00 PM", main:true}
+  ]},
+  {name:"Maya Travels", type:"Non AC", price:900, ac:false, stops:[
+    {city:"سکر", time:"09:00 PM", night:true},{city:"راڻيپور", time:"11:00 PM", main:true},{city:"مورو", time:"12:20 AM"},{city:"حيدرآباد", time:"02:30 AM"},{city:"ڪراچي صدر", time:"04:30 AM", main:true}
+  ]}
+];
+
+function searchBuses(){
+  const from = document.getElementById('fromCity').value;
+  const resDiv = document.getElementById('results');
+  resDiv.innerHTML = `<p class="font-bold text-sm"> ${from} مان ڪراچي صدر لاءِ ${buses.length} بسون مليون:</p>`;
+  buses.forEach((bus,i)=>{
+    const fromStop = bus.stops.find(s=>s.city.includes("راڻيپور") || s.city=="Ranipur");
+    const toStop = bus.stops[bus.stops.length-1];
+    resDiv.innerHTML += `
+    <div class="bg-white border rounded-[1.5rem] p-4">
+      <div class="flex justify-between items-start">
+        <div><h3 class="font-black">${bus.name}</h3><p class="text-xs text-gray-500 mt-1"><span class="${bus.ac?'bg-green-100 text-green-700':'bg-gray-100'} px-2 py-1 rounded-full text-[10px] font-bold">${bus.type}</span> • 2+2 سيٽ</p></div>
+        <b class="text-orange-500">Rs.${bus.price}</b>
+      </div>
+      <div class="flex items-center gap-3 mt-4 bg-gray-50 rounded-xl p-3">
+        <div class="text-center"><p class="font-black text-sm">${fromStop?fromStop.time:'08:15 AM'}</p><p class="text-[10px] text-gray-500">راڻيپور</p></div>
+        <div class="flex-1 border-t border-dashed border-gray-300 relative"><div class="absolute left-1/2 -top-2 bg-gray-50 px-2 text-[10px] text-gray-400"><i class="fa-solid fa-bus"></i> ${bus.stops.length-2} اسٽاپ</div></div>
+        <div class="text-center"><p class="font-black text-sm">${toStop.time}</p><p class="text-[10px] text-gray-500">صدر</p></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 mt-3">
+        <button onclick="toggleTimeline(${i})" class="py-2.5 border rounded-xl text-xs font-bold"><i class="fa-regular fa-clock"></i> مڪمل ٽائيم ٽيبل</button>
+        <a href="https://wa.me/923001234567?text=راڻيپور کان ڪراچي صدر ${bus.name} ${fromStop?fromStop.time:''}" class="py-2.5 bg-black text-white rounded-xl text-xs font-bold text-center"><i class="fa-brands fa-whatsapp"></i> بڪ ڪريو</a>
+      </div>
+      <div id="timeline-${i}" class="hidden mt-4 border-t pt-4">
+        <p class="font-bold text-xs mb-3">سکر کان صدر تائين مڪمل روٽ:</p>
+        <div class="relative border-l-2 border-dashed border-orange-200 ml-2 pl-6 space-y-4">
+          ${bus.stops.map(s=>`
+            <div class="relative">
+              <div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full ${s.main?'bg-orange-500 border-2 border-white ring-2 ring-orange-500':'bg-gray-300'}"></div>
+              <div class="flex justify-between items-center ${s.main?'bg-orange-50 border border-orange-200 rounded-xl p-2':''}">
+                <p class="font-bold text-sm ${s.main?'text-orange-600':''}">${s.city} ${s.main?'<span class=text-[9px]>(توهان جو اسٽاپ)</span>':''}</p>
+                <p class="text-xs font-bold ${s.main?'text-black':''}">${s.time}</p>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>`;
+  });
 }
-setL(localStorage.getItem('lang')||'en');
+function toggleTimeline(i){ document.getElementById('timeline-'+i).classList.toggle('hidden'); }
+searchBuses();
 </script>
 </body>
 </html>
