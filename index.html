@@ -1,28 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lari Ada</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{background:#fff7ed;padding:16px;font-family:system-ui}
+.header{background:linear-gradient(135deg,#ff6a00,#ff9a00);color:white;border-radius:20px;padding:24px;text-align:center}
+.btn{background:#ff6a00;color:white;border:none;width:100%;padding:16px;border-radius:14px;font-size:20px;font-weight:700}
+.bus{display:flex;justify-content:space-between;background:white;border-radius:18px;padding:16px;margin-top:12px;border:1.5px solid #eee}
+.price{color:#ff6a00;font-weight:800;font-size:20px}
+</style>
 </head>
-<body class="bg-gray-50 p-4">
-<div class="max-w-md mx-auto">
-<h1 class="font-black text-xl">راڻيپور کان ڪراچي</h1>
-<button id="searchBtn" class="w-full bg-orange-500 text-white py-3 rounded-xl mt-4 font-bold">بسون ڳوليو</button>
-<div id="results" class="mt-4 space-y-3"></div>
-</div>
-<script>
-const buses=[{n:"Al-Habib",p:1200},{n:"Sada Bahar",p:1100},{n:"Maya",p:900}];
-function showBuses(){
-  const r=document.getElementById('results');
-  r.innerHTML='';
-  buses.forEach(b=>{
-    r.innerHTML+=`<div class="bg-white p-4 rounded-2xl border flex justify-between"><b>${b.n}</b><b class="text-orange-500">Rs.${b.p}</b></div>`;
-  });
-}
-document.getElementById('searchBtn').addEventListener('click',showBuses);
-window.addEventListener('load',showBuses);
-</script>
+<body>
+<div class="header"><h1>🚌 لاري اڏا</h1><p>راٺيپور کان ڪراچي</p></div>
+<button class="btn" style="margin-top:16px">بسون ڳوليو 🔍</button>
+<div class="bus"><b>Al-Habib</b><span class="price">Rs.1200</span></div>
+<div class="bus"><b>Sada Bahar</b><span class="price">Rs.1100</span></div>
+<div class="bus"><b>Maya Movers</b><span class="price">Rs.900</span></div>
+<div class="bus"><b>Al-Madina ⭐ Best</b><span class="price">Rs.1500</span></div>
 </body>
 </html>
