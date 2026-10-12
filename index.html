@@ -1,23 +1,263 @@
+
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="sd" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lari Ada</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#075e45">
+<meta name="description" content="لاري اڏا سنڌ - بس، ڪوچ، وين، روٽ، ڀاڙو ۽ سفر جي معلومات">
+<title>لاري اڏا | سنڌ جو سفري نيٽ ورڪ</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body{background:#fff7ed;padding:16px;font-family:system-ui}
-.header{background:linear-gradient(135deg,#ff6a00,#ff9a00);color:white;border-radius:20px;padding:24px;text-align:center}
-.btn{background:#ff6a00;color:white;border:none;width:100%;padding:16px;border-radius:14px;font-size:20px;font-weight:700}
-.bus{display:flex;justify-content:space-between;background:white;border-radius:18px;padding:16px;margin-top:12px;border:1.5px solid #eee}
-.price{color:#ff6a00;font-weight:800;font-size:20px}
+:root{--green:#075e45;--light:#eaf5ef;--gold:#f4bd50}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f6f4;color:#182b22;font-family:Tahoma,Arial,sans-serif}
+header{background:linear-gradient(135deg,#064a37,#09805b);color:white;padding:25px 16px 22px}
+.wrap{max-width:900px;margin:auto;padding:15px}
+.brand{font-size:28px;font-weight:bold}
+header p{line-height:1.8;font-size:14px}
+.status{font-size:12px;background:#ffffff20;padding:8px 10px;border-radius:9px;display:inline-block}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px}
+nav a{color:white;text-decoration:none;border:1px solid #ffffff55;border-radius:9px;text-align:center;padding:10px 3px;font-size:13px}
+.card{background:white;border-radius:15px;padding:17px;margin:14px 0;box-shadow:0 3px 15px #153b2510}
+h2{font-size:19px;color:var(--green);margin:0 0 14px}
+h3{margin:0 0 8px;font-size:17px}
+p{line-height:1.7}
+input,select,textarea{width:100%;padding:13px;border:1px solid #d5e0d8;border-radius:9px;font:inherit;margin:6px 0 12px;background:white}
+button,.btn{display:inline-block;border:0;background:var(--green);color:white;padding:13px;border-radius:9px;font:inherit;font-weight:bold;cursor:pointer;text-align:center;text-decoration:none}
+button:disabled{opacity:.5}
+.full{width:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.trip{border:1px solid #dce9e0;border-radius:12px;padding:14px;margin:10px 0;background:#fbfdfb}
+.trip small{color:#53675b}
+.route{font-size:18px;font-weight:bold;margin:12px 0}
+.pill{display:inline-block;background:var(--light);color:var(--green);padding:5px 9px;border-radius:30px;font-size:12px}
+.muted{color:#627168;font-size:13px}
+.notice{background:#fff5d9;padding:12px;border-radius:9px;font-size:13px;line-height:1.8}
+footer{text-align:center;padding:25px;color:#627168;font-size:13px}
+@media(max-width:420px){.grid{grid-template-columns:1fr}.brand{font-size:24px}}
 </style>
 </head>
 <body>
-<div class="header"><h1>🚌 لاري اڏا</h1><p>راٺيپور کان ڪراچي</p></div>
-<button class="btn" style="margin-top:16px">بسون ڳوليو 🔍</button>
-<div class="bus"><b>Al-Habib</b><span class="price">Rs.1200</span></div>
-<div class="bus"><b>Sada Bahar</b><span class="price">Rs.1100</span></div>
-<div class="bus"><b>Maya Movers</b><span class="price">Rs.900</span></div>
-<div class="bus"><b>Al-Madina ⭐ Best</b><span class="price">Rs.1500</span></div>
+<header>
+ <div class="wrap">
+  <div class="brand">🚌 لاري اڏا سنڌ</div>
+  <p>سنڌ جي سفر، گاڏين ۽ مسافرن لاءِ هڪ گڏيل ڊجيٽل پليٽ فارم</p>
+  <span class="status" id="status">ڊيٽابيس جي حالت چيڪ ٿي رهي آهي...</span>
+  <nav>
+   <a href="#routes">روٽ ڳوليو</a>
+   <a href="#booking">بڪنگ درخواست</a>
+   <a href="#suggest">روٽ شامل ڪريو</a>
+  </nav>
+ </div>
+</header>
+
+<main class="wrap">
+ <section class="card">
+  <h2>🔎 پنهنجي سفر جي ڳولا ڪريو</h2>
+  <label for="origin">ڪٿان روانگي؟</label>
+  <input id="origin" placeholder="مثال: راڻيپور">
+  <label for="destination">ڪٿي وڃڻو آهي؟</label>
+  <input id="destination" placeholder="مثال: ڪراچي">
+  <button class="full" onclick="searchRoutes()">روٽ ڳوليو</button>
+  <button class="full" style="background:#e8f2eb;color:#075e45;margin-top:8px" onclick="loadRoutes()">سڀ روٽ ڏسو</button>
+ </section>
+
+ <section class="card" id="routes">
+  <h2>🚌 موجود سفري روٽ</h2>
+  <p class="muted">روانگي، منزل، گاڏي، وقت ۽ ڀاڙي جي تصديق ٽرانسپورٽ ڪمپني کان ڪريو.</p>
+  <div id="routeList">روٽ لوڊ ٿي رهيا آهن...</div>
+ </section>
+
+ <section class="card" id="booking">
+  <h2>🎫 سفر جي بکنگ درخواست</h2>
+  <form id="bookingForm">
+   <label>مسافر جو نالو</label>
+   <input name="passenger_name" maxlength="100" required>
+   <label>موبائل نمبر</label>
+   <input name="phone" type="tel" maxlength="25" required>
+   <div class="grid">
+    <div><label>روانگي شهر</label><input name="origin" required></div>
+    <div><label>منزل</label><input name="destination" required></div>
+   </div>
+   <div class="grid">
+    <div><label>سفر جي تاريخ</label><input name="travel_date" type="date" id="travelDate" required></div>
+    <div><label>مسافرن جو تعداد</label><input name="seats" type="number" min="1" max="10" value="1" required></div>
+   </div>
+   <button class="full" type="submit">بڪنگ جي درخواست موڪليو</button>
+  </form>
+  <p class="muted">هي درخواست آهي، ٽڪيٽ جي پڪي تصديق نه. ٽرانسپورٽ ڪمپني جي تصديق ضروري آهي.</p>
+ </section>
+
+ <section class="card" id="suggest">
+  <h2>➕ نئون روٽ تجويز ڪريو</h2>
+  <form id="suggestForm">
+   <label>بس يا ڪمپني جو نالو</label>
+   <input name="operator_name" maxlength="120" required>
+   <label>گاڏي جو قسم</label>
+   <select name="vehicle_type" required>
+    <option value="">چونڊيو</option>
+    <option>بس</option><option>ڪوچ</option><option>وين</option>
+   </select>
+   <div class="grid">
+    <div><label>روانگي شهر</label><input name="origin" required></div>
+    <div><label>منزل</label><input name="destination" required></div>
+   </div>
+   <div class="grid">
+    <div><label>روانگي جو وقت</label><input name="departure_time" type="time"></div>
+    <div><label>ڀاڙو (روپيا)</label><input name="fare" type="number" min="0"></div>
+   </div>
+   <label>ڪمپني جو رابطو نمبر (اختياري)</label>
+   <input name="phone" type="tel" maxlength="25">
+   <button class="full" type="submit">روٽ جي منظوري لاءِ موڪليو</button>
+  </form>
+  <p class="muted">روٽ انتظاميه جي تصديق کان پوءِ ئي عوامي فهرست ۾ ظاهر ٿيڻ گهرجي.</p>
+ </section>
+
+ <section class="card">
+  <h2>ℹ️ لاري اڏا بابت</h2>
+  <p>لاري اڏا جو مقصد سنڌ جي مختلف شهرن ۾ سفر ڪندڙ ماڻهن کي ٽرانسپورٽ جي معلومات هڪ هنڌ مهيا ڪرڻ آهي.</p>
+  <div class="notice">وقت، ڀاڙو ۽ سيٽن جي دستيابي ۾ تبديلي ٿي سگهي ٿي. سفر کان اڳ ڪمپني کان تصديق ڪريو. بکنگ جا ذاتي تفصيل صرف مجاز عملي کي ڏسڻ گهرجن.</div>
+ </section>
+</main>
+
+<footer>لاري اڏا سنڌ © 2026<br>سنڌ جو سفر، هڪ پليٽ فارم</footer>
+
+<script>
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+let db = null;
+let routes = [];
+
+const statusEl = document.getElementById("status");
+const routeList = document.getElementById("routeList");
+
+function esc(value){
+ return String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+function showStatus(text){
+ statusEl.textContent = text;
+}
+
+function formData(form){
+ return Object.fromEntries(new FormData(form).entries());
+}
+
+async function init(){
+ if(!window.supabase ||
+    SUPABASE_URL.includes("YOUR_") ||
+    SUPABASE_KEY.includes("YOUR_")){
+  showStatus("ڊيٽابيس جوڙڻو باقي آهي");
+  routeList.textContent = "آن لائن روٽ ڏسڻ لاءِ Supabase جا تفصيل شامل ڪريو.";
+  return;
+ }
+
+ db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+ await loadRoutes();
+}
+
+async function loadRoutes(){
+ if(!db){
+  routeList.textContent = "پهريان آن لائن ڊيٽابيس جوڙيو.";
+  return;
+ }
+ routeList.textContent = "روٽ لوڊ ٿي رهيا آهن...";
+ const {data,error} = await db.from("routes")
+  .select("id,operator_name,vehicle_type,origin,destination,departure_time,fare,phone")
+  .eq("approved",true)
+  .order("origin")
+  .limit(200);
+
+ if(error){
+  routeList.textContent = "روٽ لوڊ نه ٿيا. ڊيٽابيس جي اجازت واريون سيٽنگون چيڪ ڪريو.";
+  showStatus("ڊيٽابيس سان رابطو نه ٿيو");
+  return;
+ }
+ routes = data || [];
+ showStatus("آن لائن ڊيٽابيس سان ڳنڍيل");
+ renderRoutes(routes);
+}
+
+function renderRoutes(list){
+ if(!list.length){
+  routeList.innerHTML = '<p class="muted">هن وقت تصديق ٿيل روٽ موجود ناهن.</p>';
+  return;
+ }
+
+ routeList.innerHTML = list.map(r => `
+  <article class="trip">
+   <span class="pill">${esc(r.vehicle_type)}</span>
+   <h3 style="margin-top:10px">${esc(r.operator_name)}</h3>
+   <div class="route">${esc(r.origin)} → ${esc(r.destination)}</div>
+   <p>🕒 روانگي: ${esc(r.departure_time || "تصديق گهربل")}</p>
+   <p>💵 ڀاڙو: ${r.fare != null ? esc(r.fare)+" رپيا" : "تصديق گهربل"}</p>
+   <p class="muted">رابطو: ${r.phone ? esc(r.phone) : "ڪمپني کان معلوم ڪريو"}</p>
+   <button type="button" onclick="bookRoute('${esc(r.origin)}','${esc(r.destination)}')">بڪنگ فارم ڀريو</button>
+  </article>
+ `).join("");
+}
+
+function searchRoutes(){
+ const a = document.getElementById("origin").value.trim().toLowerCase();
+ const b = document.getElementById("destination").value.trim().toLowerCase();
+ const filtered = routes.filter(r =>
+  (!a || r.origin.toLowerCase().includes(a)) &&
+  (!b || r.destination.toLowerCase().includes(b))
+ );
+ renderRoutes(filtered);
+ document.getElementById("routes").scrollIntoView({behavior:"smooth"});
+}
+
+function bookRoute(origin,destination){
+ document.querySelector('#bookingForm [name="origin"]').value = origin;
+ document.querySelector('#bookingForm [name="destination"]').value = destination;
+ document.getElementById("booking").scrollIntoView({behavior:"smooth"});
+}
+
+document.getElementById("bookingForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!db){alert("پهريان آن لائن ڊيٽابيس جوڙيو.");return;}
+ const f = formData(e.target);
+ if(!/^[+\d\s()-]{7,25}$/.test(f.phone)){
+  alert("مهرباني ڪري صحيح موبائل نمبر داخل ڪريو.");return;
+ }
+ f.seats = Number(f.seats);
+ const {error} = await db.from("booking_requests").insert(f);
+ if(error){
+  alert("درخواست موڪلي نه سگهي. ڊيٽابيس جي سيڪيورٽي سيٽنگون چيڪ ڪريو.");
+  return;
+ }
+ e.target.reset();
+ alert("درخواست ملي وئي. ٽڪيٽ جي تصديق لاءِ ڪمپني سان رابطو ڪريو.");
+});
+
+document.getElementById("suggestForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!db){alert("پهريان آن لائن ڊيٽابيس جوڙيو.");return;}
+ const f = formData(e.target);
+ f.fare = f.fare === "" ? null : Number(f.fare);
+ const {error} = await db.from("route_suggestions").insert(f);
+ if(error){
+  alert("تجويز موڪلي نه سگهي. ڊيٽابيس جي سيڪيورٽي سيٽنگون چيڪ ڪريو.");
+  return;
+ }
+ e.target.reset();
+ alert("روٽ جي تجويز ملي وئي. منظوري کان پوءِ ان کي ظاهر ڪري سگهجي ٿو.");
+});
+
+const dateInput = document.getElementById("travelDate");
+const today = new Date();
+dateInput.min = [
+ today.getFullYear(),
+ String(today.getMonth()+1).padStart(2,"0"),
+ String(today.getDate()).padStart(2,"0")
+].join("-");
+
+init();
+</script>
 </body>
 </html>
