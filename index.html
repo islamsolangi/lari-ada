@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lari Ada - Sindh Bus Booking</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@600&family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-[#FFF8F0] font-sans">
+<body class="bg-[#FFF8F0]">
 <header class="bg-white shadow sticky top-0 z-50">
 <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
 <div class="flex items-center gap-2">
@@ -22,20 +21,25 @@
 </div>
 </header>
 
-<div class="max-w-6xl mx-auto px-4 pt-8">
+<div class="max-w-6xl mx-auto px-4 pt-10">
 <div id="t-badge" class="inline-flex bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-bold mb-4">🚌 Sindh's First Online Bus Adda</div>
 <h1 id="t-hero" class="text-4xl font-black leading-tight">Safar Sindh Jo, Booking Online Aasan!</h1>
-<p id="t-desc" class="text-gray-600 mt-3">Karachi, Hyderabad, Sukkur, Larkana, Moro, Dadu - all cities buses at one place.</p>
+<p id="t-desc" class="text-gray-600 mt-3">Karachi, Hyderabad, Sukkur, Larkana, Moro, Dadu - all cities buses at one place. Book without queue.</p>
 
 <div class="flex gap-3 mt-6">
-<div class="bg-white p-3 rounded-2xl border text-center"><p class="text-xl font-black">500+</p><p id="t-s1" class="text-xs text-gray-500">Daily Buses</p></div>
-<div class="bg-white p-3 rounded-2xl border text-center"><p class="text-xl font-black">50+</p><p id="t-s2" class="text-xs text-gray-500">Cities</p></div>
-<div class="bg-white p-3 rounded-2xl border text-center"><p class="text-xl font-black">4.8★</p><p id="t-s3" class="text-xs text-gray-500">Rating</p></div>
+<div class="bg-white p-4 rounded-2xl border text-center shadow-sm"><p class="text-2xl font-black">500+</p><p id="t-s1" class="text-xs text-gray-500">Daily Buses</p></div>
+<div class="bg-white p-4 rounded-2xl border text-center shadow-sm"><p class="text-2xl font-black">50+</p><p id="t-s2" class="text-xs text-gray-500">Cities</p></div>
+<div class="bg-white p-4 rounded-2xl border text-center shadow-sm"><p class="text-2xl font-black">4.8★</p><p id="t-s3" class="text-xs text-gray-500">Rating</p></div>
 </div>
 
-<div class="bg-white rounded-3xl p-4 shadow-xl border mt-8">
-<img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600" class="w-full h-52 object-cover rounded-2xl mb-4">
-<div class="space-y-2 text-sm"><div class="flex justify-between"><span>Karachi → Sukkur</span><b class="text-orange-500">Rs. 2500</b></div><div class="flex justify-between"><span>Hyderabad → Larkana</span><b>Rs. 1800</b></div><div class="flex justify-between"><span>Karachi → Hyderabad</span><b>Rs. 800</b></div></div>
+<!-- PRICE LIST - وچ واري تصوير واري نشاني ختم، صرف لسٽ باقي -->
+<div class="bg-white rounded-3xl p-5 shadow-sm border mt-8">
+<h3 class="font-bold mb-3">Today's Prices</h3>
+<div class="space-y-3 text-sm">
+<div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Karachi → Sukkur</span><b class="text-orange-500">Rs. 2500</b></div>
+<div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Hyderabad → Larkana</span><b>Rs. 1800</b></div>
+<div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Karachi → Hyderabad</span><b>Rs. 800</b></div>
+</div>
 </div>
 
 <div class="bg-black rounded-3xl p-6 text-white mt-8">
@@ -46,41 +50,5 @@
 <div><label id="t-date" class="text-xs text-gray-400">Date</label><input type="date" class="w-full mt-1 p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white"></div>
 <div><label id="t-pass" class="text-xs text-gray-400">Passengers</label><select class="w-full mt-1 p-3 rounded-xl bg-zinc-800 border border-zinc-700"><option>1 Seat</option><option>2 Seats</option></select></div>
 <input type="tel" placeholder="03XX-XXXXXXX" class="col-span-2 w-full p-3 rounded-xl bg-zinc-800 border border-zinc-700">
-<button onclick="alert('Booking WhatsApp pe jayegi! Aap apna number code me lagayen')" id="t-btn" class="col-span-2 bg-orange-500 py-4 rounded-xl font-bold">Confirm on WhatsApp</button>
-</div>
-</div>
-
-<h3 id="t-routes" class="font-black text-xl mt-10 mb-4">Popular Routes</h3>
-<div class="grid grid-cols-2 gap-3 pb-10"><div class="bg-white p-4 rounded-2xl border"><b>Karachi ↔ Hyderabad</b><p class="text-xs text-gray-500">Rs 800</p></div><div class="bg-white p-4 rounded-2xl border"><b>Karachi ↔ Sukkur</b><p class="text-xs text-gray-500">Rs 2500</p></div></div>
-</div>
-
-<script>
-var L = {
- en: { badge:"🚌 Sindh's First Online Bus Adda", hero:"Safar Sindh Jo, Booking Online Aasan!", desc:"Karachi, Hyderabad, Sukkur, Larkana, Moro, Dadu - all cities buses at one place. Book without queue.", s1:"Daily Buses", s2:"Cities", s3:"Rating", form:"🎫 Book Your Ticket", from:"From", to:"To", date:"Date", pass:"Passengers", btn:"Confirm Booking on WhatsApp", routes:"Popular Routes" },
- sd: { badge:"🚌 سنڌ جو پهريون آن لائين اڏو", hero:"سفر سنڌ جو، بڪنگ آن لائين آسان!", desc:"ڪراچي، حيدرآباد، سکر، لاڙڪاڻو، مورو، دادو - سڀني شهرن جون بسون هڪ هنڌ تي.", s1:"روزاني بسون", s2:"شهر", s3:"ريٽنگ", form:"🎫 ٽڪيٽ بڪ ڪريو", from:"کان", to:"تائين", date:"تاريخ", pass:"مسافر", btn:"واٽس اپ تي ڪنفرم ڪريو", routes:"مشهور رستا" },
- ur: { badge:"🚌 سندھ کا پہلا آن لائن اڈا", hero:"سفر سندھ کا، بکنگ آن لائن آسان!", desc:"کراچی، حیدرآباد، سکھر، لاڑکانہ، مورو، دادو - سب شہروں کی بسیں ایک جگہ۔", s1:"روزانہ بسیں", s2:"شہر", s3:"ریٹنگ", form:"🎫 ٹکٹ بک کریں", from:"کہاں سے", to:"کہاں تک", date:"تاریخ", pass:"مسافر", btn:"واٹس ایپ پر کنفرم کریں", routes:"مشہور راستے" }
-};
-function changeLang(l){
- var d = L[l];
- document.getElementById('t-badge').innerText = d.badge;
- document.getElementById('t-hero').innerText = d.hero;
- document.getElementById('t-desc').innerText = d.desc;
- document.getElementById('t-s1').innerText = d.s1;
- document.getElementById('t-s2').innerText = d.s2;
- document.getElementById('t-s3').innerText = d.s3;
- document.getElementById('t-form').innerText = d.form;
- document.getElementById('t-from').innerText = d.from;
- document.getElementById('t-to').innerText = d.to;
- document.getElementById('t-date').innerText = d.date;
- document.getElementById('t-pass').innerText = d.pass;
- document.getElementById('t-btn').innerText = d.btn;
- document.getElementById('t-routes').innerText = d.routes;
- document.getElementById('b-en').className = l=='en'? 'px-4 py-1.5 rounded-full text-xs font-bold bg-black text-white' : 'px-4 py-1.5 rounded-full text-xs font-bold';
- document.getElementById('b-sd').className = l=='sd'? 'px-4 py-1.5 rounded-full text-xs font-bold bg-black text-white' : 'px-4 py-1.5 rounded-full text-xs font-bold';
- document.getElementById('b-ur').className = l=='ur'? 'px-4 py-1.5 rounded-full text-xs font-bold bg-black text-white' : 'px-4 py-1.5 rounded-full text-xs font-bold';
- localStorage.setItem('lang', l);
-}
-changeLang(localStorage.getItem('lang') || 'en');
-</script>
-</body>
-</html>
+<button id="t-btn" class="col-span-2 bg-orange-500 py-4 rounded-xl font-bold">Confirm on WhatsApp</button>
+</
