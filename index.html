@@ -1,54 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lari Ada - Sindh Bus Booking</title>
+<title>Lari Ada - Sindh's No.1 Bus Booking</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap'); body{font-family:'Inter',sans-serif}</style>
 </head>
-<body class="bg-[#FFF8F0]">
-<header class="bg-white shadow sticky top-0 z-50">
+<body class="bg-[#F8F7F5] pb-24">
+
+<!-- TOP NAV -->
+<header class="bg-white sticky top-0 z-50 border-b">
 <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-<div class="flex items-center gap-2">
-<div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div>
-<b>LARI ADA</b>
+<div class="flex items-center gap-3">
+<button onclick="document.getElementById('drawer').classList.toggle('hidden')" class="w-9 h-9 bg-black text-white rounded-full"><i class="fa-solid fa-bars"></i></button>
+<div class="flex items-center gap-2"><div class="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div><span class="font-black text-lg">LARIADA</span></div>
 </div>
-<div class="flex bg-gray-100 rounded-full p-1">
-<button onclick="changeLang('en')" id="b-en" class="px-4 py-1.5 rounded-full text-xs font-bold bg-black text-white">EN</button>
-<button onclick="changeLang('sd')" id="b-sd" class="px-4 py-1.5 rounded-full text-xs font-bold">سنڌي</button>
-<button onclick="changeLang('ur')" id="b-ur" class="px-4 py-1.5 rounded-full text-xs font-bold">اردو</button>
+<div class="flex items-center gap-2">
+<div class="hidden md:flex bg-gray-100 rounded-full p-1 text-xs font-bold">
+<button onclick="setL('en')" id="b-en" class="px-3 py-1.5 rounded-full bg-black text-white">EN</button>
+<button onclick="setL('sd')" id="b-sd" class="px-3 py-1.5 rounded-full">سنڌي</button>
+<button onclick="setL('ur')" id="b-ur" class="px-3 py-1.5 rounded-full">اردو</button>
+</div>
+<a href="https://wa.me/923001234567" class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fa-brands fa-whatsapp"></i></a>
+</div>
+</div>
+<!-- MOBILE DRAWER MENU -->
+<div id="drawer" class="hidden absolute top-[57px] left-0 w-64 bg-white h-screen shadow-2xl p-5 border-r">
+<a href="#" class="flex items-center gap-3 p-3 bg-black text-white rounded-xl"><i class="fa-solid fa-house"></i> <span data-t="m1">Home</span></a>
+<a href="#routes" class="flex items-center gap-3 p-3 mt-2 hover:bg-gray-100 rounded-xl"><i class="fa-solid fa-route"></i> <span data-t="m2">Routes</span></a>
+<a href="#booking" class="flex items-center gap-3 p-3 mt-2 hover:bg-gray-100 rounded-xl"><i class="fa-solid fa-ticket"></i> <span data-t="m3">My Bookings</span></a>
+<a href="#" class="flex items-center gap-3 p-3 mt-2 hover:bg-gray-100 rounded-xl"><i class="fa-solid fa-phone"></i> <span data-t="m4">Contact</span></a>
+<div class="mt-6 pt-6 border-t">
+<p class="text-xs text-gray-400 font-bold tracking-widest">LANGUAGE</p>
+<div class="flex gap-2 mt-3">
+<button onclick="setL('en')" class="flex-1 py-2 border rounded-xl text-xs font-bold">EN</button>
+<button onclick="setL('sd')" class="flex-1 py-2 border rounded-xl text-xs font-bold">سنڌي</button>
+<button onclick="setL('ur')" class="flex-1 py-2 border rounded-xl text-xs font-bold">اردو</button>
+</div>
 </div>
 </div>
 </header>
 
-<div class="max-w-6xl mx-auto px-4 pt-10">
-<div id="t-badge" class="inline-flex bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-bold mb-4">🚌 Sindh's First Online Bus Adda</div>
-<h1 id="t-hero" class="text-4xl font-black leading-tight">Safar Sindh Jo, Booking Online Aasan!</h1>
-<p id="t-desc" class="text-gray-600 mt-3">Karachi, Hyderabad, Sukkur, Larkana, Moro, Dadu - all cities buses at one place. Book without queue.</p>
+<!-- HERO -->
+<section class="max-w-6xl mx-auto px-4 pt-6">
+<div class="bg-black rounded-[2.2rem] p-6 md:p-10 text-white relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-64 h-64 bg-orange-500 rounded-full blur-[80px] opacity-50"></div>
+<p id="t-badge" class="relative bg-white/10 inline-flex px-3 py-1 rounded-full text-xs font-bold">🚌 Trusted by 50k+ travelers</p>
+<h1 id="t-hero" class="relative text-[32px] md:text-5xl font-black leading-[0.95] mt-4">Sindh Safar<br><span class="text-orange-500">Aasan & Sasto.</span></h1>
+<p id="t-desc" class="relative text-gray-400 mt-3 text-sm md:text-base max-w-md">Karachi to Sukkur, Hyderabad to Larkana - Book bus ticket in 30 seconds, no queue.</p>
 
-<div class="flex gap-3 mt-6">
-<div class="bg-white p-4 rounded-2xl border text-center shadow-sm"><p class="text-2xl font-black">500+</p><p id="t-s1" class="text-xs text-gray-500">Daily Buses</p></div>
-<div class="bg-white p-4 rounded-2xl border text-center shadow-sm"><p class="text-2xl font-black">50+</p><p id="t-s2" class="text-xs text-gray-500">Cities</p></div>
-<div class="bg-white p-4 rounded-2xl border text-center shadow-sm"><p class="text-2xl font-black">4.8★</p><p id="t-s3" class="text-xs text-gray-500">Rating</p></div>
-</div>
-
-<!-- PRICE LIST - وچ واري تصوير واري نشاني ختم، صرف لسٽ باقي -->
-<div class="bg-white rounded-3xl p-5 shadow-sm border mt-8">
-<h3 class="font-bold mb-3">Today's Prices</h3>
-<div class="space-y-3 text-sm">
-<div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Karachi → Sukkur</span><b class="text-orange-500">Rs. 2500</b></div>
-<div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Hyderabad → Larkana</span><b>Rs. 1800</b></div>
-<div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Karachi → Hyderabad</span><b>Rs. 800</b></div>
+<!-- SEARCH BOX -->
+<div id="booking" class="relative bg-white rounded-[1.5rem] p-3 mt-8 grid grid-cols-2 md:grid-cols-5 gap-3 text-black">
+<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">FROM</label><select class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"><option>Karachi</option><option>Hyderabad</option><option>Sukkur</option><option>Larkana</option></select></div>
+<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">TO</label><select class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"><option>Hyderabad</option><option>Sukkur</option><option>Karachi</option></select></div>
+<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">DATE</label><input type="date" class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"></div>
+<div class="col-span-1"><label class="text-[10px] font-bold text-gray-400 tracking-widest">SEATS</label><select class="w-full font-bold bg-gray-50 p-2.5 rounded-xl mt-1 text-sm"><option>1 Seat</option><option>2 Seats</option></select></div>
+<button class="col-span-2 md:col-span-1 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl flex items-center justify-center gap-2"><i class="fa-solid fa-magnifying-glass"></i> <span id="t-search">Search</span></button>
 </div>
 </div>
+</section>
 
-<div class="bg-black rounded-3xl p-6 text-white mt-8">
-<h3 id="t-form" class="text-xl font-bold mb-4">🎫 Book Your Ticket</h3>
-<div class="grid grid-cols-2 gap-3">
-<div><label id="t-from" class="text-xs text-gray-400">From</label><select class="w-full mt-1 p-3 rounded-xl bg-zinc-800 border border-zinc-700"><option>Karachi</option><option>Hyderabad</option><option>Sukkur</option></select></div>
-<div><label id="t-to" class="text-xs text-gray-400">To</label><select class="w-full mt-1 p-3 rounded-xl bg-zinc-800 border border-zinc-700"><option>Hyderabad</option><option>Karachi</option><option>Sukkur</option></select></div>
-<div><label id="t-date" class="text-xs text-gray-400">Date</label><input type="date" class="w-full mt-1 p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white"></div>
-<div><label id="t-pass" class="text-xs text-gray-400">Passengers</label><select class="w-full mt-1 p-3 rounded-xl bg-zinc-800 border border-zinc-700"><option>1 Seat</option><option>2 Seats</option></select></div>
-<input type="tel" placeholder="03XX-XXXXXXX" class="col-span-2 w-full p-3 rounded-xl bg-zinc-800 border border-zinc-700">
-<button id="t-btn" class="col-span-2 bg-orange-500 py-4 rounded-xl font-bold">Confirm on WhatsApp</button>
-</
+<!-- STATS -->
+<section class="max-w-6xl mx-auto px-4 grid grid-cols-3 gap-3 mt-6">
+<div class="bg-white border rounded-2xl p-4 text-center"><p class="text-2xl font-black">500+</p><p id="t-s1" class="text-[11px] text-gray-500 font-bold">Daily Buses</p></div>
+<div class="bg-white border rounded-2xl p-4 text-center"><p class="text-2xl font-black">50+</p><p id="t-s2" class="text-[11px] text-gray-500 font-bold">Cities Covered</p></div>
+<div class="bg-white border rounded-2xl p-4 text-center"><p class="text-2xl font-black">4.8★</p><p id="t-s3" class="text-[11px] text-gray-500 font-bold">User Rating</p></div>
+</section>
+
+<!-- ROUTES -->
+<section id="routes" class="max-w-6xl mx-auto px-4 mt-10">
+<div class="flex justify-between items-center"><h2 id="t-routes" class="font-black text-xl">Popular Routes</h2><a href="#" class="text-orange-500 text-sm font-bold">View All</a></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+<div class="bg-white border rounded-2xl p-4 flex justify-between items-center"><div><p class="font-bold">Karachi → Hyderabad</p><p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> 2h 30m • Every 30 min</p></div><b class="text-orange-500">Rs.800</b></div>
+<div class="bg-white border rounded-2xl p-4 flex justify-between items-center"><div><p class="font-bold">Karachi → Sukkur</p><p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> 7h • AC Business</p></div><b class="text-orange-500">Rs.2500</b></div>
+<div class="bg-white border rounded-2xl p-4 flex justify-between items-center"><div><p class="font-bold">Hyderabad → Larkana</p><p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-clock"></i> 4h • Non AC</p></div><b>Rs.1800</b></div>
+</div>
+</section>
+
+<!-- BOTTOM NAV - APP LIKE -->
+<nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black text-white rounded-full px-2 py-2 flex gap-1 shadow-2xl z-50">
+<a href="#" class="bg-white text-black px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2"><i class="fa-solid fa-house"></i> Home</a>
+<a href="#routes" class="px-5 py-2.5 rounded-full text-sm font-bold text-gray-400"><i class="fa-solid fa-route"></i></a>
+<a href="#" class="px-5 py-2.5 rounded-full text-sm font-bold text-gray-400"><i class="fa-solid fa-ticket"></i></a>
+<a href="#" class="px-5 py-2.5 rounded-full text-sm font-bold text-gray-400"><i class="fa-solid fa-user"></i></a>
+</nav>
+
+<script>
+var D={
+ en:{m1:"Home",m2:"Routes",m3:"My Bookings",m4:"Contact",badge:"🚌 Trusted by 50k+ travelers",hero:"Sindh Safar<br><span class='text-orange-500'>Aasan & Sasto.</span>",desc:"Karachi to Sukkur, Hyderabad to Larkana - Book bus ticket in 30 seconds, no queue.",search:"Search",s1:"Daily Buses",s2:"Cities Covered",s3:"User Rating",routes:"Popular Routes"},
+ sd:{m1:"گهر",m2:"رستا",m3:"منهنجون بڪنگون",m4:"رابطو",badge:"🚌 50 هزار مسافرن جو اعتماد",hero:"سنڌ جو سفر<br><span class='text-orange-500'>آسان ۽ سستو.</span>",desc:"ڪراچي کان سکر، حيدرآباد کان لاڙڪاڻو - 30 سيڪنڊن ۾ ٽڪيٽ بڪ ڪريو.",search:"ڳولا",s1:"روزاني بسون",s2:"شهر",s3:"ريٽنگ",routes:"مشهور رستا"},
+ ur:{m1:"ہوم",m2:"راستے",m3:"میری بکنگ",m4:"رابطہ",badge:"🚌 50 ہزار مسافروں کا اعتماد",hero:"سندھ کا سفر<br><span class='text-orange-500'>آسان اور سستا.</span>",desc:"کراچی سے سکھر، حیدرآباد سے لاڑکانہ - 30 سیکنڈ میں ٹکٹ بک کریں۔",search:"تلاش",s1:"روزانہ بسیں",s2:"شہر",s3:"ریٹنگ",routes:"مشہور راستے"}
+};
+function setL(l){
+ var d=D[l];
+ document.querySelectorAll('[data-t]').forEach(e=>{var k=e.getAttribute('data-t'); if(d[k]) e.innerText=d[k];});
+ document.getElementById('t-badge').innerHTML=d.badge;
+ document.getElementById('t-hero').innerHTML=d.hero;
+ document.getElementById('t-desc').innerText=d.desc;
+ document.getElementById('t-search').innerText=d.search;
+ document.getElementById('t-s1').innerText=d.s1;
+ document.getElementById('t-s2').innerText=d.s2;
+ document.getElementById('t-s3').innerText=d.s3;
+ document.getElementById('t-routes').innerText=d.routes;
+ localStorage.setItem('lang',l);
+ document.getElementById('b-en').className=l=='en'?'px-3 py-1.5 rounded-full bg-black text-white':'px-3 py-1.5 rounded-full';
+ document.getElementById('b-sd').className=l=='sd'?'px-3 py-1.5 rounded-full bg-black text-white':'px-3 py-1.5 rounded-full';
+ document.getElementById('b-ur').className=l=='ur'?'px-3 py-1.5 rounded-full bg-black text-white':'px-3 py-1.5 rounded-full';
+}
+setL(localStorage.getItem('lang')||'en');
+</script>
+</body>
+</html>
