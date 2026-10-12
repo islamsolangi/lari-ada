@@ -1,67 +1,20 @@
 <!DOCTYPE html>
-<html lang="sd">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lari Ada - Ranipur to Karachi Sadar</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body class="bg-[#F8F7F5] pb-10">
-<header class="bg-white border-b px-4 py-3 flex justify-between items-center">
-<div class="flex items-center gap-2"><div class="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div><b>LARIADA</b></div>
-<a href="https://wa.me/923001234567" class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fa-brands fa-whatsapp"></i></a>
-</header>
-
-<div class="max-w-md mx-auto px-4 pt-5">
-<h1 class="font-black text-2xl">راڻيپور کان ڪراچي صدر؟</h1>
-<p class="text-sm text-gray-500 mt-1">بسون چيڪ ڪريو، ٽائيم ۽ ڪرايو ڏسو</p>
-
-<div class="bg-black rounded-[1.8rem] p-4 mt-5">
-<div class="grid grid-cols-2 gap-3">
-<div><label class="text-[10px] text-gray-400 font-bold">کان</label>
-<select id="fromCity" class="w-full mt-1 p-3 rounded-xl font-bold bg-white"><option>راڻيپور</option><option>سکر</option><option>خيرپور</option></select></div>
-<div><label class="text-[10px] text-gray-400 font-bold">تائين</label>
-<select id="toCity" class="w-full mt-1 p-3 rounded-xl font-bold bg-white"><option>ڪراچي صدر</option><option>ڪراچي</option></select></div>
-</div>
-<button id="searchBtn" class="w-full bg-orange-500 mt-4 py-3.5 rounded-xl font-black text-white"> <i class="fa-solid fa-magnifying-glass"></i> بسون ڳوليو</button>
-</div>
-
-<div id="results" class="mt-6 space-y-4"></div>
-</div>
-
+<html lang="sd"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lari Ada</title><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></head>
+<body class="bg-[#F8F7F5]"><header class="bg-white border-b px-4 py-3 flex justify-between"><div class="flex gap-2 items-center"><div class="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div><b>LARIADA</b></div><a href="https://wa.me/923001234567" class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fa-brands fa-whatsapp"></i></a></header>
+<div class="max-w-md mx-auto px-4 pt-5"><h1 class="font-black text-2xl">راڻيپور کان ڪراچي صدر؟</h1><div class="bg-black rounded-[1.8rem] p-4 mt-5"><div class="grid grid-cols-2 gap-3"><select id="fromCity" class="w-full p-3 rounded-xl font-bold"><option>راڻيپور</option><option>سکر</option></select><select id="toCity" class="w-full p-3 rounded-xl font-bold"><option>ڪراچي صدر</option><option>ڪراچي</option></select></div><button id="searchBtn" type="button" class="w-full bg-orange-500 mt-4 py-3.5 rounded-xl font-black text-white">بسون ڳوليو</button></div><div id="results" class="mt-6 space-y-4"></div></div>
 <script>
-const buses = [
-  {name:"Al-Habib Coach", price:1200, ac:true, from:"08:15 AM", to:"03:00 PM", stops:["سکر 06:00","خيرپور 06:50","گمبٽ 07:30","راڻيپور 08:15","هنگورجا 08:45","مورو 10:15","حيدرآباد 01:00","ڪراچي صدر 03:00"]},
-  {name:"Sada Bahar Express", price:1100, ac:true, from:"10:45 AM", to:"05:00 PM", stops:["سکر 08:30","گمبٽ 10:00","راڻيپور 10:45","مورو 12:30","حيدرآباد 03:15","ڪراچي صدر 05:00"]},
-  {name:"Maya Travels", price:900, ac:false, from:"11:00 PM", to:"04:30 AM", stops:["سکر 09:00 PM","راڻيپور 11:00 PM","مورو 12:20 AM","ڪراچي صدر 04:30 AM"]}
-];
-
+const buses=[{name:"Al-Habib Coach",price:1200,from:"08:15 AM",to:"03:00 PM",stops:["سکر 06:00","خيرپور 06:50","گمبٽ 07:30","راڻيپور 08:15","مورو 10:15","ڪراچي صدر 03:00"]},{name:"Sada Bahar Express",price:1100,from:"10:45 AM",to:"05:00 PM",stops:["سکر 08:30","راڻيپور 10:45","مورو 12:30","ڪراچي صدر 05:00"]},{name:"Maya Travels",price:900,from:"11:00 PM",to:"04:30 AM",stops:["سکر 09:00 PM","راڻيپور 11:00 PM","ڪراچي صدر 04:30 AM"]}];
 function showBuses(){
-  const btn = document.getElementById('searchBtn');
-  btn.innerHTML = '... ڳولي رهيو آهيان';
-  setTimeout(()=>{
-    const box = document.getElementById('results');
-    box.innerHTML = '';
-    buses.forEach((b,i)=>{
-      box.innerHTML += `<div class="bg-white border rounded-[1.5rem] p-4">
-        <div class="flex justify-between"><h3 class="font-black">${b.name}</h3><b class="text-orange-500">Rs.${b.price}</b></div>
-        <div class="flex justify-between bg-gray-50 rounded-xl p-3 mt-3 text-center"><div><p class="font-black">${b.from}</p><p class="text-[10px]">راڻيپور</p></div><div class="text-orange-500"><i class="fa-solid fa-bus"></i></div><div><p class="font-black">${b.to}</p><p class="text-[10px]">صدر</p></div></div>
-        <div class="grid grid-cols-2 gap-2 mt-3"><button onclick="document.getElementById('t-${i}').classList.toggle('hidden')" class="border py-2.5 rounded-xl text-xs font-bold">مڪمل ٽائيم ٽيبل</button><a href="https://wa.me/923001234567?text=${b.name} بڪ ڪرڻي آهي" class="bg-black text-white py-2.5 rounded-xl text-xs font-bold text-center">بڪ ڪريو</a></div>
-        <div id="t-${i}" class="hidden mt-3 border-t pt-3 text-sm leading-7">${b.stops.join('<br>')}</div>
-      </div>`;
-    });
-    btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> بسون ڳوليو';
-  },300);
-}
-  <script>
-const buses = [ ... ];
-
-function showBuses(){
-  // ... سڄو فنڪشن ...
+ const box=document.getElementById('results'); const btn=document.getElementById('searchBtn');
+ btn.innerHTML='...ڳولي رهيو آهيان';
+ setTimeout(()=>{
+  box.innerHTML='';
+  buses.forEach((b,i)=>{
+   box.innerHTML+=`<div class="bg-white border rounded-[1.5rem] p-4"><div class="flex justify-between"><h3 class="font-black">${b.name}</h3><b class="text-orange-500">Rs.${b.price}</b></div><div class="flex justify-between bg-gray-50 rounded-xl p-3 mt-3 text-center"><div><p class="font-black">${b.from}</p></div><div class="text-orange-500"><i class="fa-solid fa-bus"></i></div><div><p class="font-black">${b.to}</p></div></div><div class="grid grid-cols-2 gap-2 mt-3"><button onclick="document.getElementById('t-${i}').classList.toggle('hidden')" class="border py-2.5 rounded-xl text-xs font-bold">ٽائيم ٽيبل</button><a href="https://wa.me/923001234567?text=${b.name}" class="bg-black text-white py-2.5 rounded-xl text-xs font-bold text-center">بڪ ڪريو</a></div><div id="t-${i}" class="hidden mt-3 border-t pt-3 text-sm leading-7">${b.stops.join('<br>')}</div></div>`;
+  });
+  btn.innerHTML='بسون ڳوليو';
+ },300);
 }
 document.getElementById('searchBtn').addEventListener('click', showBuses);
-document.addEventListener('DOMContentLoaded', showBuses);
-</script>
-</body>
-</html>
+window.addEventListener('load', showBuses);
+</script></body></html>
