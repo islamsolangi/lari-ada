@@ -7,8 +7,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body class="bg-[#F8F7F5] pb-24">
-<header class="bg-white sticky top-0 z-50 border-b px-4 py-3 flex justify-between items-center">
+<body class="bg-[#F8F7F5] pb-10">
+<header class="bg-white border-b px-4 py-3 flex justify-between items-center">
 <div class="flex items-center gap-2"><div class="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black">لا</div><b>LARIADA</b></div>
 <a href="https://wa.me/923001234567" class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fa-brands fa-whatsapp"></i></a>
 </header>
@@ -19,10 +19,12 @@
 
 <div class="bg-black rounded-[1.8rem] p-4 mt-5">
 <div class="grid grid-cols-2 gap-3">
-<div><label class="text-[10px] text-gray-400 font-bold">کان</label><select id="fromCity" class="w-full mt-1 p-3 rounded-xl font-bold text-sm bg-white"><option value="Ranipur">راڻيپور</option><option value="Sukkur">سکر</option><option value="Khairpur">خيرپور</option><option value="Gambat">گمبٽ</option><option value="Moro">مورو</option></select></div>
-<div><label class="text-[10px] text-gray-400 font-bold">تائين</label><select id="toCity" class="w-full mt-1 p-3 rounded-xl font-bold text-sm bg-white"><option value="Karachi Sadar">ڪراچي صدر</option><option value="Karachi">ڪراچي</option><option value="Hyderabad">حيدرآباد</option></select></div>
+<div><label class="text-[10px] text-gray-400 font-bold">کان</label>
+<select id="fromCity" class="w-full mt-1 p-3 rounded-xl font-bold bg-white"><option>راڻيپور</option><option>سکر</option><option>خيرپور</option></select></div>
+<div><label class="text-[10px] text-gray-400 font-bold">تائين</label>
+<select id="toCity" class="w-full mt-1 p-3 rounded-xl font-bold bg-white"><option>ڪراچي صدر</option><option>ڪراچي</option></select></div>
 </div>
-<button id="mainSearchBtn" class="w-full bg-orange-500 mt-4 py-3.5 rounded-xl font-black text-white"><i class="fa-solid fa-magnifying-glass"></i> بسون ڳوليو</button>
+<button id="searchBtn" class="w-full bg-orange-500 mt-4 py-3.5 rounded-xl font-black text-white"> <i class="fa-solid fa-magnifying-glass"></i> بسون ڳوليو</button>
 </div>
 
 <div id="results" class="mt-6 space-y-4"></div>
@@ -30,48 +32,30 @@
 
 <script>
 const buses = [
-  {name:"Al-Habib Coach", type:"AC Business", price:1200, ac:true, stops:[
-    {city:"سکر", time:"06:00 AM"},{city:"خيرپور", time:"06:50 AM"},{city:"گمبٽ", time:"07:30 AM"},{city:"راڻيپور", time:"08:15 AM", main:true},{city:"هنگورجا", time:"08:45 AM"},{city:"ڪنڊيارو", time:"09:10 AM"},{city:"نوشهرو فيروز", time:"09:40 AM"},{city:"مورو", time:"10:15 AM"},{city:"هالا", time:"11:30 AM"},{city:"سعيدآباد", time:"12:00 PM"},{city:"حيدرآباد", time:"01:00 PM"},{city:"ڪراچي", time:"02:40 PM"},{city:"ڪراچي صدر", time:"03:00 PM", main:true}
-  ]},
-  {name:"Sada Bahar Express", type:"AC Economy", price:1100, ac:true, stops:[
-    {city:"سکر", time:"08:30 AM"},{city:"خيرپور", time:"09:15 AM"},{city:"گمبٽ", time:"10:00 AM"},{city:"راڻيپور", time:"10:45 AM", main:true},{city:"هنگورجا", time:"11:15 AM"},{city:"ڪنڊيارو", time:"11:40 AM"},{city:"مورو", time:"12:30 PM"},{city:"هالا", time:"01:45 PM"},{city:"حيدرآباد", time:"03:15 PM"},{city:"ڪراچي صدر", time:"05:00 PM", main:true}
-  ]},
-  {name:"Maya Travels", type:"Non AC", price:900, ac:false, stops:[
-    {city:"سکر", time:"09:00 PM"},{city:"راڻيپور", time:"11:00 PM", main:true},{city:"مورو", time:"12:20 AM"},{city:"حيدرآباد", time:"02:30 AM"},{city:"ڪراچي صدر", time:"04:30 AM", main:true}
-  ]}
+  {name:"Al-Habib Coach", price:1200, ac:true, from:"08:15 AM", to:"03:00 PM", stops:["سکر 06:00","خيرپور 06:50","گمبٽ 07:30","راڻيپور 08:15","هنگورجا 08:45","مورو 10:15","حيدرآباد 01:00","ڪراچي صدر 03:00"]},
+  {name:"Sada Bahar Express", price:1100, ac:true, from:"10:45 AM", to:"05:00 PM", stops:["سکر 08:30","گمبٽ 10:00","راڻيپور 10:45","مورو 12:30","حيدرآباد 03:15","ڪراچي صدر 05:00"]},
+  {name:"Maya Travels", price:900, ac:false, from:"11:00 PM", to:"04:30 AM", stops:["سکر 09:00 PM","راڻيپور 11:00 PM","مورو 12:20 AM","ڪراچي صدر 04:30 AM"]}
 ];
 
-function searchBuses(){
-  const from = document.getElementById('fromCity').value;
-  const resDiv = document.getElementById('results');
-  resDiv.innerHTML = `<p class="font-bold text-sm">${from} مان ڪراچي صدر لاءِ ${buses.length} بسون مليون:</p>`;
-  buses.forEach((bus,i)=>{
-    const fromStop = bus.stops.find(s=>s.city.includes("راڻيپور")) || bus.stops[0];
-    const toStop = bus.stops[bus.stops.length-1];
-    resDiv.innerHTML += `
-    <div class="bg-white border rounded-[1.5rem] p-4">
-      <div class="flex justify-between items-start">
-        <div><h3 class="font-black">${bus.name}</h3><p class="text-xs text-gray-500 mt-1"><span class="${bus.ac?'bg-green-100 text-green-700':'bg-gray-100'} px-2 py-1 rounded-full text-[10px] font-bold">${bus.type}</span> • 2+2 سيٽ</p></div>
-        <b class="text-orange-500">Rs.${bus.price}</b>
-      </div>
-      <div class="flex items-center gap-3 mt-4 bg-gray-50 rounded-xl p-3">
-        <div class="text-center"><p class="font-black text-sm">${fromStop.time}</p><p class="text-[10px] text-gray-500">راڻيپور</p></div>
-        <div class="flex-1 border-t border-dashed border-gray-300 relative"><div class="absolute left-1/2 -top-2 bg-gray-50 px-2 text-[10px] text-gray-400"><i class="fa-solid fa-bus"></i> ${bus.stops.length-2} اسٽاپ</div></div>
-        <div class="text-center"><p class="font-black text-sm">${toStop.time}</p><p class="text-[10px] text-gray-500">صدر</p></div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 mt-3">
-        <button onclick="toggleTimeline(${i})" class="py-2.5 border rounded-xl text-xs font-bold"><i class="fa-regular fa-clock"></i> مڪمل ٽائيم ٽيبل</button>
-        <a href="https://wa.me/923001234567?text=راڻيپور کان ڪراچي صدر ${bus.name}" class="py-2.5 bg-black text-white rounded-xl text-xs font-bold text-center"><i class="fa-brands fa-whatsapp"></i> بڪ ڪريو</a>
-      </div>
-      <div id="timeline-${i}" class="hidden mt-4 border-t pt-4">
-        <p class="font-bold text-xs mb-3">سکر کان صدر تائين مڪمل روٽ:</p>
-        <div class="relative border-l-2 border-dashed border-orange-200 ml-2 pl-6 space-y-4">
-          ${bus.stops.map(s=>`
-            <div class="relative">
-              <div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full ${s.main?'bg-orange-500 ring-2 ring-orange-200':'bg-gray-300'}"></div>
-              <div class="flex justify-between items-center ${s.main?'bg-orange-50 border border-orange-200 rounded-xl p-2':''}">
-                <p class="font-bold text-sm ${s.main?'text-orange-600':''}">${s.city}</p>
-                <p class="text-xs font-bold">${s.time}</p>
-              </div>
-            </div>
-          `).join('')}
+function showBuses(){
+  const btn = document.getElementById('searchBtn');
+  btn.innerHTML = '... ڳولي رهيو آهيان';
+  setTimeout(()=>{
+    const box = document.getElementById('results');
+    box.innerHTML = '';
+    buses.forEach((b,i)=>{
+      box.innerHTML += `<div class="bg-white border rounded-[1.5rem] p-4">
+        <div class="flex justify-between"><h3 class="font-black">${b.name}</h3><b class="text-orange-500">Rs.${b.price}</b></div>
+        <div class="flex justify-between bg-gray-50 rounded-xl p-3 mt-3 text-center"><div><p class="font-black">${b.from}</p><p class="text-[10px]">راڻيپور</p></div><div class="text-orange-500"><i class="fa-solid fa-bus"></i></div><div><p class="font-black">${b.to}</p><p class="text-[10px]">صدر</p></div></div>
+        <div class="grid grid-cols-2 gap-2 mt-3"><button onclick="document.getElementById('t-${i}').classList.toggle('hidden')" class="border py-2.5 rounded-xl text-xs font-bold">مڪمل ٽائيم ٽيبل</button><a href="https://wa.me/923001234567?text=${b.name} بڪ ڪرڻي آهي" class="bg-black text-white py-2.5 rounded-xl text-xs font-bold text-center">بڪ ڪريو</a></div>
+        <div id="t-${i}" class="hidden mt-3 border-t pt-3 text-sm leading-7">${b.stops.join('<br>')}</div>
+      </div>`;
+    });
+    btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> بسون ڳوليو';
+  },300);
+}
+document.getElementById('searchBtn').addEventListener('click', showBuses);
+document.addEventListener('DOMContentLoaded', showBuses);
+</script>
+</body>
+</html>
