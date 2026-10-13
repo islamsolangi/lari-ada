@@ -36,6 +36,47 @@ button:disabled{opacity:.5}
 .notice{background:#fff5d9;padding:12px;border-radius:9px;font-size:13px;line-height:1.8}
 footer{text-align:center;padding:25px;color:#627168;font-size:13px}
 @media(max-width:420px){.grid{grid-template-columns:1fr}.brand{font-size:24px}}
+
+.ticket-panel {
+  background: #ffffff;
+  border: 1px solid #d8e5dc;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 18px 0;
+}
+.ticket-panel h2 {
+  color: #167344;
+  margin-top: 0;
+}
+.ticket-panel label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+.ticket-panel input,
+.ticket-panel select,
+.ticket-panel button {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.ticket-panel button {
+  background: #167344;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+.ticket-result {
+  background: #edf8f0;
+  padding: 12px;
+  margin-top: 14px;
+  border-radius: 8px;
+  line-height: 1.9;
+}
 </style>
 </head>
 <body>
@@ -122,6 +163,72 @@ footer{text-align:center;padding:25px;color:#627168;font-size:13px}
 </main>
 
 <footer>لاري اڏا سنڌ © 2026<br>سنڌ جو سفر، هڪ پليٽ فارم</footer>
+
+<section class="ticket-panel" id="ticketSale">
+  <h2>🎫 مسافر جي ٽڪيٽ</h2>
+
+  <label for="ticketPassenger">مسافر جو نالو</label>
+  <input id="ticketPassenger" type="text"
+         placeholder="مسافر جو نالو">
+
+  <label for="ticketPhone">موبائل نمبر</label>
+  <input id="ticketPhone" type="tel"
+         placeholder="03XXXXXXXXX">
+
+  <label for="ticketFrom">ڪٿان چڙهندو؟</label>
+  <input id="ticketFrom" type="text"
+         placeholder="مثال: راڻيپور">
+
+  <label for="ticketTo">ڪٿي لهندو؟</label>
+  <input id="ticketTo" type="text"
+         placeholder="مثال: سکر">
+
+  <label for="ticketFare">ٽڪيٽ جو ڀاڙو (روپيا)</label>
+  <input id="ticketFare" type="number"
+         min="1" step="1" placeholder="مثال: 1000">
+
+  <label for="ticketSeats">مسافرن جو تعداد</label>
+  <input id="ticketSeats" type="number"
+         min="1" max="50" value="1">
+
+  <button type="button" onclick="calculateTicket()">
+    ڪميشن جو حساب ڪريو
+  </button>
+
+  <div id="ticketResult" class="ticket-result"
+       aria-live="polite">
+    ڀاڙو داخل ڪريو، پوءِ حساب ڪريو.
+  </div>
+</section>
+
+<script>
+function calculateTicket() {
+  const fare = Number(
+    document.getElementById("ticketFare").value
+  );
+  const seats = Number(
+    document.getElementById("ticketSeats").value
+  );
+  const result = document.getElementById("ticketResult");
+
+  if (!Number.isFinite(fare) || fare <= 0 ||
+      !Number.isInteger(seats) || seats < 1 || seats > 50) {
+    result.textContent =
+      "مهرباني ڪري صحيح ڀاڙو ۽ مسافرن جو تعداد داخل ڪريو.";
+    return;
+  }
+
+  const total = fare * seats;
+  const commission = total * 0.10;
+  const ownerAmount = total - commission;
+
+  result.innerHTML =
+    "ڪل ڀاڙو: " + total.toLocaleString("en-PK") + " رپيا<br>" +
+    "10٪ ڪميشن: " + commission.toLocaleString("en-PK") + " رپيا<br>" +
+    "بس مالڪ جو حصو: " + ownerAmount.toLocaleString("en-PK") + " رپيا" +
+    "<br><small>هي صرف حساب آهي؛ ٽڪيٽ اڃا ڊيٽابيس ۾ محفوظ ناهي.</small>";
+}
+</script>
 
 <script>
 const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
